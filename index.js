@@ -22,7 +22,7 @@ const list = (transaction) => {
     const item = document.createElement('li')
     item.classList.add(transaction.amount < 0 ? "exp" : "inc")
     item.innerHTML = `${transaction.description} <span> ${sign} ${Math.abs(transaction.amount)} </span>
- <button class="btn-del" onclick="removeTrans${transaction.id}"> del</button>`
+ <button class="btn-del" onclick="removeTrans(${transaction.id})"> del</button>`
 
 
     trans.appendChild(item)
@@ -34,6 +34,15 @@ const localStorageTrans = JSON.parse(localStorage.getItem("trans"));
 let transactions = localStorage.getItem("trans") !== null ? localStorageTrans : [];
 
 
+function removeTrans(id) {
+    if (confirm("Are you sure you want to delete transaction?")) {
+        transactions = transactions.filter((transaction) => transaction.id != id);
+        //config();
+        updateLocalStorage();
+    } else {
+        return;
+    }
+}
 
 
 function addTransaction(e) {
@@ -68,15 +77,4 @@ function uniqueId() {
 
 function updateLocalStorage() {
     localStorage.setItem("trans", JSON.stringify(transactions));
-}
-
-
-function removeTrans(id) {
-    if (confirm("Are you sure you want to delete transaction?")) {
-        transactions = transactions.filter((transaction) => transaction.id != id);
-        //config();
-        updateLocalStorage();
-    } else {
-        return;
-    }
 }
