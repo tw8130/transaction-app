@@ -19,7 +19,7 @@ body {
 }
 
 header {
-    background-color: #2ecc71;
+    background-color: #40e90d;
     color: #FFFFFF;
     text-align: center;
     height: 75px;
@@ -97,7 +97,7 @@ input[type='number'] {
 
 .btn {
     cursor: pointer;
-    background-color: #0366D6;
+    background-color: #6b69e5;
     box-shadow: var(--box-shadow);
     color: #fff;
     border: 0;

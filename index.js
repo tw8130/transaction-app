@@ -22,7 +22,7 @@ const addList = (transaction) => {
     const item = document.createElement('li')
     item.classList.add(transaction.amount < 0 ? "minus" : "plus")
     item.innerHTML = `${transaction.text} <span> ${sign} ${Math.abs(transaction.amount)} </span>
- <button class="delete-btn" onclick="removeTransaction(${transaction.id})">X</button>`
+ <button class="delete-btn" onclick="removeTransaction(${transaction.id})"><i class="fas fa-trash"></i></button>`
 
 
     list.appendChild(item)
@@ -83,9 +83,14 @@ function updateValues() {
 }
 // Remove transaction by ID
 function removeTransaction(id) {
-    transactions = transactions.filter(transaction => transaction.id !== id);
-    updateLocalStorage();
-    init();
+    if (confirm("Are you sure you want to remove this transaction?")) {
+        transactions = transactions.filter(transaction => transaction.id !== id);
+        updateLocalStorage();
+        init();
+    } else {
+        return;
+    }
+
 }
 
 // Update local storage transactions
