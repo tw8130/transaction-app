@@ -5,6 +5,7 @@ const list = document.getElementById('list');
 const form = document.getElementById('form');
 const text = document.getElementById('text');
 const amount = document.getElementById('amount');
+const expense_chart = document.getElementById('expense-chart');
 // const items = [
 
 // {id: 1,  desc:"Flower", amount:"4000"},
@@ -81,6 +82,24 @@ function updateValues() {
     money_plus.innerText = `$${income}`;
     money_minus.innerText = `$${expense}`;
 }
+
+function income_res() {
+    const amounts = transactions.map(transaction => transaction.amount);
+    const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
+    const income = amounts
+        .filter(item => item > 0)
+        .reduce((acc, item) => (acc += item), 0)
+        .toFixed(2);
+
+    // return income;
+    console.log(total);
+
+}
+
+income_res();
+
+
+
 // Remove transaction by ID
 function removeTransaction(id) {
     if (confirm("Are you sure you want to remove this transaction?")) {
@@ -105,4 +124,29 @@ function init() {
 }
 init();
 
-form.addEventListener("submit", addTransaction)
+form.addEventListener("submit", addTransaction);
+
+let xValues = ["Income", "Expense"];
+let yValues = [67, 78];
+let barColors = [
+    "#b91d47",
+    "#1e7145"
+];
+
+new Chart("expense-chart", {
+    type: "doughnut",
+    data: {
+        labels: xValues,
+        datasets: [{
+            backgroundColor: barColors,
+            data: yValues
+        }]
+    },
+    options: {
+        title: {
+            display: true,
+            text: "Chart Tracker"
+        }
+    }
+});
+l
